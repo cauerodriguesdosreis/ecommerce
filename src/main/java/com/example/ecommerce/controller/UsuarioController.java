@@ -22,4 +22,32 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
+    @PostMapping
+    public ResponseEntity<UsuarioResponseDTO> criar(@Valid @RequestBody UsuarioRequestDTO request) {
+        UsuarioResponseDTO response = usuarioService.criar(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioResponseDTO> buscarPorId(@PathVariable java.util.UUID id) {
+        return ResponseEntity.ok(usuarioService.buscarPorId(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UsuarioResponseDTO>> listar() {
+        return ResponseEntity.ok(usuarioService.listar());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioResponseDTO> atualizar(@PathVariable java.util.UUID id,
+                                                        @Valid @RequestBody UsuarioRequestDTO request) {
+        return ResponseEntity.ok(usuarioService.atualizar(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable java.util.UUID id) {
+        usuarioService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

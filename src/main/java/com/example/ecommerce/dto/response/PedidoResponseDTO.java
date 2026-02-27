@@ -1,22 +1,15 @@
 package com.example.ecommerce.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.ecommerce.enums.StatusDoPedido;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class PedidoResponseDTO {
+import java.time.LocalDate;
+import java.util.UUID;
 
-    private String nome;
-
-    private String descricao;
-
-    private double preco;
-
-    private String imgUrl;
-
+public record PedidoResponseDTO(
+        UUID id,
+        LocalDate timestamp,
+        StatusDoPedido status,
+        UUID clienteId,
+        UUID pagamentoId
+) {
 }

@@ -1,9 +1,14 @@
 package com.example.ecommerce.dto.request;
 
+import com.example.ecommerce.enums.StatusDoPedido;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDate;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -11,12 +16,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PedidoRequestDTO {
 
-    private String nome;
+    private LocalDate momento;
 
-    private String descricao;
+    private StatusDoPedido status;
 
-    private Double preco;
-
-    private String imgUrl;
-
+    @NotNull(message = "Este campo é obrigatório.")
+    UUID clienteId;
 }

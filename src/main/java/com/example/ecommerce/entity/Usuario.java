@@ -1,6 +1,7 @@
 package com.example.ecommerce.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,11 +35,10 @@ public class Usuario {
     @OneToMany (mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 
-    public Usuario(String nome, String email, String numero_telefone, String senha, String roles) {
+    public Usuario(String nome, String email, String numero_telefone, String senha) {
         this.nome = nome;
         this.email = email;
         this.numero_telefone = numero_telefone;
         this.senha = senha;
-        this.roles = roles;
     }
 }

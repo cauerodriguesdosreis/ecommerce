@@ -29,8 +29,6 @@ public class Pedido {
     @JoinColumn(name = "cliente_id")
     private Usuario cliente;
 
-    public Pedido(LocalDate timestamp, StatusDoPedido status) {
-        this.timestamp = timestamp;
-        this.status = status;
-    }
+    @OneToOne (mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Pagamento pagamento;
 }

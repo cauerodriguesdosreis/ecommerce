@@ -22,4 +22,6 @@ public class UsuarioRequestDTO {
 
     private String numero_telefone;
 
+    private String senha;
+
 }

@@ -18,7 +18,7 @@ import java.util.UUID;
 public class Pedido {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(columnDefinition = "BINARY(16)")
     private UUID id;
     private LocalDate timestamp;
 

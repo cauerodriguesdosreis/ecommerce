@@ -1,6 +1,9 @@
 package com.example.ecommerce.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
@@ -10,6 +13,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -20,7 +25,13 @@ import java.util.UUID;
 public class Pagamento {
 
     @Id
+    @Column(columnDefinition = "BINARY(16)")
     private UUID id;
+    BigDecimal valor;
+    String metodo;
+    String status;
+    LocalDateTime dataPagamento;
+    String numeroTransacao;
 
     @OneToOne
     @MapsId

@@ -37,7 +37,7 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoService.listar());
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public ResponseEntity<PedidoResponseDTO> atualizar(@PathVariable UUID id,
                                                        @Valid @RequestBody PedidoRequestDTO request) {
         return ResponseEntity.ok(pedidoService.atualizar(id, request));

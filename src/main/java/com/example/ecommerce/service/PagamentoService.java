@@ -34,11 +34,13 @@ public class PagamentoService {
         Pagamento pagamento = new Pagamento();
         pagamento.setPedido(pedido);
 
+        pagamento.setId(pedido.getId()); // 🔥 ESSA LINHA RESOLVE
         // manter consistência dos dois lados do relacionamento
         pedido.setPagamento(pagamento);
 
-        Pagamento salvo = pagamentoRepository.save(pagamento);
-        return toResponseDTO(salvo);
+        System.out.println("ID do pagamento após o flush: " + pagamento.getId());
+        pedidoRepository.save(pedido);
+        return toResponseDTO(pagamento);
     }
 
     @Transactional(readOnly = true)
@@ -64,9 +66,11 @@ public class PagamentoService {
             throw new IllegalArgumentException("Este pedido não possui pagamento para atualizar.");
         }
 
-        // Se você adicionar campos no Pagamento, atualize aqui:
-        // pagamento.setMetodo(request.metodo());
-        // pagamento.setValor(request.valor());
+        pagamento.setMetodo(request.metodo());
+        pagamento.setValor(request.valor());
+        pagamento.setStatus(request.status());
+        pagamento.setDataPagamento(request.dataPagamento());
+        pagamento.setNumeroTransacao(request.numeroTransacao());
 
         Pagamento salvo = pagamentoRepository.save(pagamento);
         return toResponseDTO(salvo);

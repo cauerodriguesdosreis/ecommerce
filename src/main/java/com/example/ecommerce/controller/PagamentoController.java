@@ -22,7 +22,7 @@ public class PagamentoController {
     @PostMapping
     public ResponseEntity<PagamentoResponseDTO> criar(@PathVariable UUID pedidoId,
                                                       @RequestBody(required = false) PagamentoRequestDTO request) {
-        PagamentoRequestDTO safeRequest = (request != null) ? request : new PagamentoRequestDTO();
+        PagamentoRequestDTO safeRequest = (request != null) ? request : new PagamentoRequestDTO(request);
         PagamentoResponseDTO response = pagamentoService.criarPagamento(pedidoId, safeRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -35,7 +35,7 @@ public class PagamentoController {
     @PutMapping ("/{id}")
     public ResponseEntity<PagamentoResponseDTO> atualizar(@PathVariable UUID pedidoId,
                                                           @RequestBody(required = false) PagamentoRequestDTO request) {
-        PagamentoRequestDTO safeRequest = (request != null) ? request : new PagamentoRequestDTO();
+        PagamentoRequestDTO safeRequest = (request != null) ? request : new PagamentoRequestDTO(request);
         return ResponseEntity.ok(pagamentoService.atualizarPagamentoDoPedido(pedidoId, safeRequest));
     }
 

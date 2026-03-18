@@ -1,22 +1,28 @@
 package com.example.ecommerce.dto.request;
 
+
+import com.example.ecommerce.entity.Pagamento;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.UUID;
 
-public record PagamentoRequestDTO(
-        BigDecimal valor,
-        String metodo,
-        String status,
-        LocalDateTime dataPagamento,
-        String numeroTransacao
-)
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class PagamentoRequestDTO {
 
-{
-    public PagamentoRequestDTO(PagamentoRequestDTO requestDTO) {
-        this(requestDTO.valor, requestDTO.metodo, requestDTO.status, requestDTO.dataPagamento, requestDTO.numeroTransacao);
+    private UUID id;
+    LocalDate dataPagamento;
+
+
+    public PagamentoRequestDTO(Pagamento pagamento) {
+        this.id = pagamento.getId();
+        this.dataPagamento = pagamento.getDataPagamento();
     }
 
 }

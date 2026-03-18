@@ -24,6 +24,7 @@ public class Usuario {
 
     private String nome;
 
+    @Column (unique = true)
     private String email;
 
     private String numero_telefone;

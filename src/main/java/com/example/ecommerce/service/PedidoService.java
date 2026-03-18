@@ -6,6 +6,7 @@ import com.example.ecommerce.entity.Pagamento;
 import com.example.ecommerce.entity.Pedido;
 import com.example.ecommerce.entity.Usuario;
 import com.example.ecommerce.enums.StatusDoPedido;
+import com.example.ecommerce.repository.PagamentoRepository;
 import com.example.ecommerce.repository.PedidoRepository;
 import com.example.ecommerce.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,12 @@ public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
     private final UsuarioRepository usuarioRepository;
+    private final PagamentoRepository pagamentoRepository;
 
-    public PedidoService(PedidoRepository pedidoRepository, UsuarioRepository usuarioRepository) {
+    public PedidoService(PedidoRepository pedidoRepository, UsuarioRepository usuarioRepository, PagamentoRepository pagamentoRepository) {
         this.pedidoRepository = pedidoRepository;
         this.usuarioRepository = usuarioRepository;
+        this.pagamentoRepository = pagamentoRepository;
     }
 
     @Transactional
@@ -36,6 +39,12 @@ public class PedidoService {
         pedido.setStatus(request.getStatus() != null ? request.getStatus() : StatusDoPedido.AGUARDANDO_PAGAMENTO);
         pedido.setCliente(cliente);
 
+        Pagamento pg = new Pagamento();
+        pg.setPedido(pedido);
+        pedido.setPagamento(pg);
+        pg.setDataPagamento(LocalDate.now());
+
+        pagamentoRepository.save(pg);
         Pedido salvo = pedidoRepository.save(pedido);
         return toResponseDTO(salvo);
     }
@@ -73,7 +82,6 @@ public class PedidoService {
         Pedido salvo = pedidoRepository.save(pedido);
         return toResponseDTO(salvo);
     }
-// ... existing code ...
 
     @Transactional
     public void deletar(UUID id) {

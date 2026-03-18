@@ -4,6 +4,7 @@ import com.example.ecommerce.dto.request.PagamentoRequestDTO;
 import com.example.ecommerce.dto.response.PagamentoResponseDTO;
 import com.example.ecommerce.entity.Pagamento;
 import com.example.ecommerce.entity.Pedido;
+import com.example.ecommerce.enums.StatusDoPedido;
 import com.example.ecommerce.repository.PagamentoRepository;
 import com.example.ecommerce.repository.PedidoRepository;
 import org.springframework.stereotype.Service;
@@ -66,11 +67,8 @@ public class PagamentoService {
             throw new IllegalArgumentException("Este pedido não possui pagamento para atualizar.");
         }
 
-        pagamento.setMetodo(request.metodo());
-        pagamento.setValor(request.valor());
-        pagamento.setStatus(request.status());
-        pagamento.setDataPagamento(request.dataPagamento());
-        pagamento.setNumeroTransacao(request.numeroTransacao());
+        pagamento.setDataPagamento(pagamento.getDataPagamento());
+        pedido.setPagamento(StatusDoPedido.PAGO.equals(pedido.getStatus()) ? null : pagamento);
 
         Pagamento salvo = pagamentoRepository.save(pagamento);
         return toResponseDTO(salvo);

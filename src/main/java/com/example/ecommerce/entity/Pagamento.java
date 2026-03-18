@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -25,13 +26,9 @@ import java.util.UUID;
 public class Pagamento {
 
     @Id
-    @Column(columnDefinition = "BINARY(16)")
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private UUID id;
-    BigDecimal valor;
-    String metodo;
-    String status;
-    LocalDateTime dataPagamento;
-    String numeroTransacao;
+    LocalDate dataPagamento;
 
     @OneToOne
     @MapsId

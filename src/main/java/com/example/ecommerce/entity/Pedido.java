@@ -15,10 +15,11 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "pedido")
 public class Pedido {
 
     @Id
-    @Column(columnDefinition = "BINARY(16)")
+    @GeneratedValue (strategy = GenerationType.UUID)
     private UUID id;
     private LocalDate timestamp;
 
@@ -29,6 +30,6 @@ public class Pedido {
     @JoinColumn(name = "cliente_id")
     private Usuario cliente;
 
-    @OneToOne (mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne (mappedBy = "pedido")
     private Pagamento pagamento;
 }

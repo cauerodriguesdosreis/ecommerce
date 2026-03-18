@@ -19,27 +19,22 @@ public class PagamentoController {
         this.pagamentoService = pagamentoService;
     }
 
-    @PostMapping
-    public ResponseEntity<PagamentoResponseDTO> criar(@PathVariable UUID pedidoId,
-                                                      @RequestBody(required = false) PagamentoRequestDTO request) {
-        PagamentoRequestDTO safeRequest = (request != null) ? request : new PagamentoRequestDTO(request);
-        PagamentoResponseDTO response = pagamentoService.criarPagamento(pedidoId, safeRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    @PostMapping ("/criar")
+    public ResponseEntity<PagamentoResponseDTO> criar(@PathVariable UUID pedidoId, @RequestBody PagamentoRequestDTO request) {
+        return ResponseEntity.ok(pagamentoService.criarPagamento(pedidoId, request));
     }
 
-    @GetMapping
+    @GetMapping("/listar")
     public ResponseEntity<PagamentoResponseDTO> buscar(@PathVariable UUID pedidoId) {
         return ResponseEntity.ok(pagamentoService.buscarPagamentoDoPedido(pedidoId));
     }
 
     @PutMapping ("/{id}")
-    public ResponseEntity<PagamentoResponseDTO> atualizar(@PathVariable UUID pedidoId,
-                                                          @RequestBody(required = false) PagamentoRequestDTO request) {
-        PagamentoRequestDTO safeRequest = (request != null) ? request : new PagamentoRequestDTO(request);
-        return ResponseEntity.ok(pagamentoService.atualizarPagamentoDoPedido(pedidoId, safeRequest));
+    public ResponseEntity<PagamentoResponseDTO> atualizar(@PathVariable UUID pedidoId, @RequestBody PagamentoRequestDTO request) {
+        return ResponseEntity.ok(pagamentoService.atualizarPagamentoDoPedido(pedidoId, request));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable UUID pedidoId) {
         pagamentoService.deletarPagamentoDoPedido(pedidoId);
         return ResponseEntity.noContent().build();

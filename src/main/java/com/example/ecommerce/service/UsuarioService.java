@@ -19,7 +19,6 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    @Transactional
     public UsuarioResponseDTO criar(UsuarioRequestDTO request) {
         Usuario usuario = new Usuario(request.getNome(), request.getEmail(), request.getNumero_telefone(), request.getSenha());
 

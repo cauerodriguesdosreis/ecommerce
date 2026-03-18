@@ -21,7 +21,7 @@ public class PedidoController {
         this.pedidoService = pedidoService;
     }
 
-    @PostMapping
+    @PostMapping ("/criar")
     public ResponseEntity<PedidoResponseDTO> criar(@Valid @RequestBody PedidoRequestDTO request) {
         PedidoResponseDTO response = pedidoService.criar(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -32,12 +32,12 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoService.buscarPorId(id));
     }
 
-    @GetMapping
+    @GetMapping ("/listar")
     public ResponseEntity<List<PedidoResponseDTO>> listar() {
         return ResponseEntity.ok(pedidoService.listar());
     }
 
-    @PutMapping
+    @PutMapping ("/{id}")
     public ResponseEntity<PedidoResponseDTO> atualizar(@PathVariable UUID id,
                                                        @Valid @RequestBody PedidoRequestDTO request) {
         return ResponseEntity.ok(pedidoService.atualizar(id, request));

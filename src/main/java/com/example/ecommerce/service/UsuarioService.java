@@ -20,12 +20,19 @@ public class UsuarioService {
     }
 
     public UsuarioResponseDTO criar(UsuarioRequestDTO request) {
-        Usuario usuario = new Usuario(request.getNome(), request.getEmail(), request.getNumero_telefone(), request.getSenha());
+        if (usuarioRepository.existsByEmail(request.getEmail())) {
+            throw new IllegalArgumentException("Email já cadastrado: " + request.getEmail());
+        }
+        Usuario usuario = new Usuario(
+                request.getNome(),
+                request.getEmail(),
+                request.getNumero_telefone(),
+                request.getSenha()
+        );
 
         Usuario salvo = usuarioRepository.save(usuario);
         return toResponseDTO(salvo);
     }
-
     @Transactional(readOnly = true)
     public UsuarioResponseDTO buscarPorId(UUID id) {
         Usuario usuario = usuarioRepository.findById(id)

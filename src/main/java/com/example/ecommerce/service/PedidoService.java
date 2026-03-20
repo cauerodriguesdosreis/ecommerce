@@ -39,12 +39,11 @@ public class PedidoService {
         pedido.setStatus(request.getStatus() != null ? request.getStatus() : StatusDoPedido.AGUARDANDO_PAGAMENTO);
         pedido.setCliente(cliente);
 
-        Pagamento pg = new Pagamento();
-        pg.setPedido(pedido);
-        pedido.setPagamento(pg);
-        pg.setDataPagamento(LocalDate.now());
+        Pagamento pagamento = new Pagamento();
+        pagamento.setDataPagamento(LocalDate.now());
+        pagamento.setPedido(pedido);
+        pedido.setPagamento(pagamento);
 
-        pagamentoRepository.save(pg);
         Pedido salvo = pedidoRepository.save(pedido);
         return toResponseDTO(salvo);
     }
@@ -85,10 +84,9 @@ public class PedidoService {
 
     @Transactional
     public void deletar(UUID id) {
-        if (!pedidoRepository.existsById(id)) {
-            throw new IllegalArgumentException("Pedido não encontrado: " + id);
-        }
-        pedidoRepository.deleteById(id);
+        Pedido pedido = pedidoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado: " + id));
+        pedidoRepository.delete(pedido);
     }
 
     private PedidoResponseDTO toResponseDTO(Pedido pedido) {

@@ -1,12 +1,11 @@
 package com.example.ecommerce.repository;
 
-import com.example.ecommerce.entity.Usuario;
+import com.example.ecommerce.entity.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, UUID> {
-    boolean existsByEmail(String email);
+public interface Produtorepository extends JpaRepository<Produto, UUID> {
 }

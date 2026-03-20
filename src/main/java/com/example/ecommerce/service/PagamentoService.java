@@ -35,8 +35,7 @@ public class PagamentoService {
         Pagamento pagamento = new Pagamento();
         pagamento.setPedido(pedido);
 
-        pagamento.setId(pedido.getId()); // 🔥 ESSA LINHA RESOLVE
-        // manter consistência dos dois lados do relacionamento
+        pagamento.setId(pedido.getId()); // Define o ID do pagamento igual ao ID do pedido
         pedido.setPagamento(pagamento);
 
         System.out.println("ID do pagamento após o flush: " + pagamento.getId());
